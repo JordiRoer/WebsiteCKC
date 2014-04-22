@@ -39,10 +39,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Scaffolding.EntityFramework.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Entity.Design">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Entity.Design.DatabaseGeneration">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.DatabaseGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Entity.Design.EntityDesigner">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.EntityDesigner.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Entity.Design.Model">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Entity.Design.Package">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.Package.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Entity.Design.VersioningFacade">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Microsoft.Data.Entity.Design.VersioningFacade.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -93,10 +122,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <Private>True</Private>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -118,9 +143,6 @@
     </Reference>
     <Reference Include="System.Web.Http.WebHost">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.1.2\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -172,18 +194,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CKCDatabase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404221557498_Startup.cs" />
+    <Compile Include="Migrations\201404221557498_Startup.Designer.cs">
+      <DependentUpon>201404221557498_Startup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CKC-logo.png" />
@@ -191,17 +222,23 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\modernizr-2.7.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -219,7 +256,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
@@ -241,11 +277,19 @@
     <Folder Include="Views\Match\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201404221557498_Startup.resx">
+      <DependentUpon>201404221557498_Startup.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

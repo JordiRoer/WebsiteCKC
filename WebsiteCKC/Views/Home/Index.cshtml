@@ -3,7 +3,7 @@
 }
 
 <div class="page-header">
-    <h1>Welkom op de webpagina van CKC 5<small> Een getalenteerd team, waarbij de derde helft telt!</small></h1>
+    <h1>Welkom op de webpagina van @ViewBag.TeamName 5<small> Een getalenteerd team, waarbij de derde helft telt!</small></h1>
 </div>
 <div class="row">
     <div class="col-lg-9">
@@ -35,91 +35,36 @@
     </div>
     <div class="col-lg-3" style="border-left: 1px solid #eee;">
         <h2>Stand</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Team</th>
-                    <th>G</th>
-                    <th>P</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>CKC 5</td>
-                    <td>16</td>
-                    <td>43</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>CVV-Mercurius 1</td>
-                    <td>43</td>
-                    <td>42</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Antibarbari 12</td>
-                    <td>43</td>
-                    <td>41</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>SVS 4</td>
-                    <td>43</td>
-                    <td>40</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>CKC 5</td>
-                    <td>43</td>
-                    <td>43</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>CVV-Mercurius 1</td>
-                    <td>43</td>
-                    <td>42</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Antibarbari 12</td>
-                    <td>43</td>
-                    <td>41</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>SVS 4</td>
-                    <td>43</td>
-                    <td>40</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>CKC 5</td>
-                    <td>43</td>
-                    <td>43</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>CVV-Mercurius 1</td>
-                    <td>43</td>
-                    <td>42</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Antibarbari 12</td>
-                    <td>43</td>
-                    <td>41</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>SVS 4</td>
-                    <td>43</td>
-                    <td>40</td>
-                </tr>
-            </tbody>
-        </table>
+        @if(ViewData["Teams"] != null)
+        { 
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Team</th>
+                        <th>G</th>
+                        <th>P</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var team in ViewData["Teams"] as List<Team>)
+                    {
+                    
+                        <tr>
+                            <td>@team.ID</td>
+                            <td>@team.ClubName @team.TeamNumber</td>
+                            <td>0</td>
+                            <td>0</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-        <p>@Html.ActionLink("Laatste stand", "Details", "Competition", new { @class = "btn btn-default btn-sm" })</p>
+            <p>@Html.ActionLink("Laatste stand", "Details", "Competition", new { @class = "btn btn-default btn-sm" })</p>
+        }
+        else
+        {
+            <p class="text-warning">No teams in this competition.</p>
+        }
     </div>
 </div>

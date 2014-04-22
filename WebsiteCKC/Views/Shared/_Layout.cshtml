@@ -29,6 +29,14 @@
                     <li>@Html.ActionLink("Spelers", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Verslagen", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Over ons", "Contact", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Actions <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Vul database", "FeedDatabase", "Home")</li>
+                        </ul>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
