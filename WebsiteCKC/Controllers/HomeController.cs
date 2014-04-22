@@ -11,11 +11,14 @@ namespace WebsiteCKC.Controllers
     {
         CKCDatabase db = new CKCDatabase();
         DatabaseManager dbm = new DatabaseManager();
+        StatisticsCenter statsCenter = new StatisticsCenter();
 
         public ActionResult Index()
         {
             Competition comp = dbm.GetCompetitionByID(8);
-            List<Team> teams = dbm.GetTeamsByCompID(comp.ID);
+            List<Team> teamss = dbm.GetTeamsByCompID(comp.ID);
+            List<TeamStats> teams = statsCenter.SortTeamsByPoint(teamss);
+            
             ViewData["Teams"] = teams;
             return View();
         }

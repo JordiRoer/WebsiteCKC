@@ -3,17 +3,13 @@
 }
 
 <div class="page-header">
-    <h1>Welkom op de webpagina van @ViewBag.TeamName 5<small> Een getalenteerd team, waarbij de derde helft telt!</small></h1>
+    <h1>Welkom op de webpagina van CKC 5<small> Een getalenteerd team, waarbij de derde helft telt!</small></h1>
 </div>
 <div class="row">
     <div class="col-lg-9">
         <div class="row">
             <div class="col-md-11" style="border-bottom: 1px solid #eee">
                 <h2>Laatste nieuws</h2>
-                @*<p class="news-item">
-                    <span class=" text-info">22-04-2014</span> - CKC versterkt zich met keeper.
-                    @Html.ActionLink("Lees meer!", "Latest", "News")
-                </p>
                 <p class="news-item">
                     <span class=" text-info">22-04-2014</span> - CKC versterkt zich met keeper.
                     @Html.ActionLink("Lees meer!", "Latest", "News")
@@ -21,7 +17,11 @@
                 <p class="news-item">
                     <span class=" text-info">22-04-2014</span> - CKC versterkt zich met keeper.
                     @Html.ActionLink("Lees meer!", "Latest", "News")
-                </p>*@
+                </p>
+                <p class="news-item">
+                    <span class=" text-info">22-04-2014</span> - CKC versterkt zich met keeper.
+                    @Html.ActionLink("Lees meer!", "Latest", "News")
+                </p>
                 <p>@Html.ActionLink("Laatste nieuws", "Latest", "News", new { @class = "btn btn-default btn-sm" })</p>
             </div>
             <div class="col-md-6">
@@ -44,17 +44,18 @@
                         <th>Team</th>
                         <th>G</th>
                         <th>P</th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach(var team in ViewData["Teams"] as List<Team>)
+                    @foreach(var team in ViewData["Teams"] as List<WebsiteCKC.Models.TeamStats>)
                     {
                     
                         <tr>
-                            <td>@team.ID</td>
-                            <td>@team.ClubName @team.TeamNumber</td>
-                            <td>0</td>
-                            <td>0</td>
+                            <td>@team.Position</td>
+                            <td>@team.TeamName</td>
+                            <td>@team.MatchesPlayed</td>
+                            <td>@team.Points</td>
                         </tr>
                     }
                 </tbody>
