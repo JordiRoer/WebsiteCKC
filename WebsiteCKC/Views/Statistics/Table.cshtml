@@ -1,0 +1,93 @@
+﻿@model WebsiteCKC.Models.TeamStats
+
+@{
+    ViewBag.Title = "Table";
+}
+<div class="row">
+    <div class="col-md-4">
+        <h3>Last results</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-link="row" class="rowlink">
+                <tr>
+                    <td><a href="#">CKC 5</a></td>
+                    <td><strong>1</strong></td>
+                    <td>-</td>
+                    <td><strong>3</strong></td>
+                    <td>SVS 4</td>
+                </tr>
+                <tr>
+                    <td><a href="#">CVV-Mercurius 1</a></td>
+                    <td><strong>1</strong></td>
+                    <td>-</td>
+                    <td><strong>3</strong></td>
+                    <td>Antibarbari 11</td>
+                </tr>
+                <tr>
+                    <td><a href="#">Sparta (AV)</a></td>
+                    <td><strong>7</strong></td>
+                    <td>-</td>
+                    <td><strong>2</strong></td>
+                    <td>Pretoria 4</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-8" style="border-left: 1px solid #eee">
+        
+        <h3>Stand @ViewBag.Competition.Class<span>e klasse groep 0</span>@ViewBag.Competition.Group</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>PL</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>P</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>+-</th>
+                    <th>PS</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in ViewData["Teams"] as List<WebsiteCKC.Models.TeamStats>)
+                {
+
+                    <tr>
+                        <td>@team.Position</td>
+                        <td>@team.TeamName</td>
+                        <td>@team.MatchesPlayed</td>
+                        <td>@team.MatchesWon</td>
+                        <td>@team.MatchesTied</td>
+                        <td>@team.MatchesLost</td>
+                        <td>@team.Points</td>
+                        <td>@team.GoalsScored</td>
+                        <td>@team.GoalsConceded</td>
+                        <td>@team.GoalsAverage</td>
+                        <td>@team.PointsLost</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p class="text-info">Last update: 22-04-2014</p>
+    </div>
+</div>
+
+
+
+
+
+
+

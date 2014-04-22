@@ -16,6 +16,13 @@ namespace WebsiteCKC.Models
                 stats.TeamID = team.ID;
                 stats.TeamName = team.ClubName + " " + team.TeamNumber;
                 stats.MatchesPlayed = 0;
+                stats.MatchesWon = 0;
+                stats.MatchesTied = 0;
+                stats.MatchesLost = 0;
+                stats.GoalsScored = 0;
+                stats.GoalsConceded = 0;
+                stats.GoalsAverage = 0;
+                stats.PointsLost = 0;
                 stats.Points = 0;
 
                 teamstats.Add(stats);

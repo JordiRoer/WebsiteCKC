@@ -8,6 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/Jasny");
 
 </head>
 <body>
@@ -24,7 +25,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Competitie", "About", "Home")</li>
+                    <li>@Html.ActionLink("Competitie", "Table", "Statistics")</li>
                     <li>@Html.ActionLink("Statistieken", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Spelers", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Verslagen", "Contact", "Home")</li>
