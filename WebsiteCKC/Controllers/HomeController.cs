@@ -37,62 +37,6 @@ namespace WebsiteCKC.Controllers
             return View();
         }
 
-        public ActionResult FeedDatabase()
-        {
-            dbm.ClearCompetitions();
-            dbm.ClearTeams();
-            int compID = dbm.AddCompetition(7, 08);
-            List<Team> teams = new List<Team>{
-                new Team{
-                    ClubName = "CVV-Mercurius",
-                    TeamNumber = 1,
-                    CompID = compID
-                },
-                new Team{
-                    ClubName = "SVS",
-                    TeamNumber = 4,
-                    CompID = compID
-                },new Team{
-                    ClubName = "Antibarbari",
-                    TeamNumber = 11,
-                    CompID = compID
-                },new Team{
-                    ClubName = "Blijdorp",
-                    TeamNumber = 4,
-                    CompID = compID
-                },new Team{
-                    ClubName = "VOB",
-                    TeamNumber = 2,
-                    CompID = compID
-                },new Team{
-                    ClubName = "Pretoria",
-                    TeamNumber = 4,
-                    CompID = compID
-                },new Team{
-                    ClubName = "CKC",
-                    TeamNumber = 5,
-                    CompID = compID
-                },new Team{
-                    ClubName = "CWO",
-                    TeamNumber = 2,
-                    CompID = compID
-                },new Team{
-                    ClubName = "TOGB",
-                    TeamNumber = 11,
-                    CompID = compID
-                },new Team{
-                    ClubName = "Sparta (AV)",
-                    TeamNumber = 2,
-                    CompID = compID
-                }
-            };
-
-            foreach(Team team in teams)
-            {
-                int teamID = dbm.AddTeam(team.ClubName, team.TeamNumber, team.CompID);
-            }
-
-            return RedirectToAction("Index");
-        }
+        
     }
 }

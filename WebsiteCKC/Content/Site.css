@@ -19,3 +19,12 @@ textarea {
 .news-item{
     border-bottom: 1px solid #eee;
 }
+
+.red
+{
+    color: red;
+}
+
+.green{
+    color: green;
+}

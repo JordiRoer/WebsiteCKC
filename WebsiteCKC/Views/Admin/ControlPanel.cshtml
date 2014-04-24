@@ -1,0 +1,40 @@
+﻿<div class="row">
+    <div class="col-lg-2" style="border-right: 1px solid #eee">
+        <ul class="nav nav-pills nav-stacked">
+            <li class="active">@Html.ActionLink("Configuration", "ControlPanel", "Admin")</li>
+            <li>@Html.ActionLink("Competition", "Competition", "Admin")</li>
+            <li>@Html.ActionLink("Players", "Players", "Admin")</li>
+            <li>@Html.ActionLink("Matches", "Matches", "Admin")</li>
+        </ul>
+    </div>
+    <div class="col-lg-10">
+        <h3>Configuratie</h3>
+        @if (ViewData["Competition"] == null)
+        {
+            <h4 class="red"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Competition", "Competition", "Admin", new { }, new { @class = "red" })</h4>
+        }
+        else
+        {
+            <h4 class="green"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Competition", "Competition", "Admin", new { }, new { @class = "green" })</h4>
+        }
+        @if (ViewData["ConfigTeams"] == null)
+        {
+            <h4 class="red"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Teams in competitie", "Competition", "Admin", new { }, new { @class = "red" })</h4>
+        }
+        else
+        {
+            <h4 class="green"><span class="glyphicon glyphicon-ok"></span>@Html.ActionLink(" Teams in competitie", "Competition", "Admin", new { }, new { @class = "green" })</h4>
+        }
+        @if (ViewData["FavoriteTeam"] == null)
+        {
+            <h4 class="red"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Favoriete team", "Competition", "Admin", new { }, new { @class = "red" })</h4>
+        }
+        else
+        {
+            <h4 class="green"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Favoriete team", "Competition", "Admin", new { }, new { @class = "green" })</h4>
+        }
+        
+        <h4 class="red"><span class="glyphicon glyphicon-remove"></span>@Html.ActionLink(" Spelers in team", "Competition", "Admin", new { }, new { @class = "red" })</h4>
+        <p class="text-info">Om optimaal gebruik te kunnen maken van uw persoonlijke website, wordt u gevraagd alle bovenstaande punten correct te configureren.</p>
+    </div>
+</div>

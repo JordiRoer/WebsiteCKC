@@ -196,6 +196,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="CKCDatabase.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MatchController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -206,10 +207,36 @@
     <Compile Include="Migrations\201404221557498_Startup.Designer.cs">
       <DependentUpon>201404221557498_Startup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201404222152100_AddedMatches.cs" />
+    <Compile Include="Migrations\201404222152100_AddedMatches.Designer.cs">
+      <DependentUpon>201404222152100_AddedMatches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404231638162_AddUserIDToCompetition.cs" />
+    <Compile Include="Migrations\201404231638162_AddUserIDToCompetition.Designer.cs">
+      <DependentUpon>201404231638162_AddUserIDToCompetition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404231654597_ChangeUserIDType1.cs" />
+    <Compile Include="Migrations\201404231654597_ChangeUserIDType1.Designer.cs">
+      <DependentUpon>201404231654597_ChangeUserIDType1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404231655167_ChangeUserIDType2.cs" />
+    <Compile Include="Migrations\201404231655167_ChangeUserIDType2.Designer.cs">
+      <DependentUpon>201404231655167_ChangeUserIDType2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404231742111_AddedOwnedTeam.cs" />
+    <Compile Include="Migrations\201404231742111_AddedOwnedTeam.Designer.cs">
+      <DependentUpon>201404231742111_AddedOwnedTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201404231743257_AddedOwnedTeamAdded.cs" />
+    <Compile Include="Migrations\201404231743257_AddedOwnedTeamAdded.Designer.cs">
+      <DependentUpon>201404231743257_AddedOwnedTeamAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminViewModels.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MatchViewModels.cs" />
     <Compile Include="Models\StatisticsCenter.cs" />
     <Compile Include="Models\TeamStats.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -277,6 +304,9 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Statistics\Table.cshtml" />
+    <Content Include="Views\Admin\ControlPanel.cshtml" />
+    <Content Include="Views\Admin\Competition.cshtml" />
+    <Content Include="Views\Shared\_ConfigCompetitionTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,6 +325,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201404221557498_Startup.resx">
       <DependentUpon>201404221557498_Startup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404222152100_AddedMatches.resx">
+      <DependentUpon>201404222152100_AddedMatches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404231638162_AddUserIDToCompetition.resx">
+      <DependentUpon>201404231638162_AddUserIDToCompetition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404231654597_ChangeUserIDType1.resx">
+      <DependentUpon>201404231654597_ChangeUserIDType1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404231655167_ChangeUserIDType2.resx">
+      <DependentUpon>201404231655167_ChangeUserIDType2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404231742111_AddedOwnedTeam.resx">
+      <DependentUpon>201404231742111_AddedOwnedTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201404231743257_AddedOwnedTeamAdded.resx">
+      <DependentUpon>201404231743257_AddedOwnedTeamAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

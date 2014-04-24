@@ -25,6 +25,8 @@ namespace WebsiteCKC
 
         public virtual DbSet<Competition> Competitions { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Match> Matches { get; set; }
+        public virtual DbSet<OwnedTeam> OwnedTeams { get; set; }
     }
 
     //public class MyEntity
@@ -39,6 +41,7 @@ namespace WebsiteCKC
         public int ID { get; set; }
         public int Class { get; set; }
         public int Group { get; set; }
+        public string UserID { get; set; }
     }
 
     public class Team
@@ -48,5 +51,23 @@ namespace WebsiteCKC
         public string ClubName { get; set; }
         public int TeamNumber { get; set; }
         public int CompID { get; set; }
+    }
+
+    public class Match
+    {
+        [Key]
+        public int MatchID { get; set; }
+        public DateTime MatchedPlayed { get; set; }
+        public int HomeTeamID { get; set; }
+        public int HomeTeamScored { get; set; }
+        public int AwayTeamID { get; set; }
+        public int AwayTeamScored { get; set; }
+    }
+
+    public class OwnedTeam
+    {
+        public int ID { get; set; }
+        public int TeamID { get; set; }
+        public string UserID { get; set; }
     }
 }

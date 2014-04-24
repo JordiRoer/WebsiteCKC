@@ -1,10 +1,20 @@
-﻿@model WebsiteCKC.Models.TeamStats
+﻿
+@model WebsiteCKC.Models.MatchViewModels
 
 @{
     ViewBag.Title = "Table";
 }
 <div class="row">
-    <div class="col-md-4">
+    @if (TempData["MatchAdded"] != null)
+    {
+        <p class="text-info">@Html.Encode(TempData["MatchAdded"])</p>
+    }
+    
+    @if(Model == null)
+    {
+        <p>fsdfsdsdfssfdsdffsdfjwejfbnwefbwefhjwebhjfwebfbwefwejfbwefhwebfhjwebfhjwebfhwejfbwehjfb</p>
+    }
+    <div class="col-md-5">
         <h3>Last results</h3>
         <table class="table table-hover">
             <thead>
@@ -14,10 +24,12 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody data-link="row" class="rowlink">
                 <tr>
+                    <td>04-05-2014</td>
                     <td><a href="#">CKC 5</a></td>
                     <td><strong>1</strong></td>
                     <td>-</td>
@@ -25,6 +37,7 @@
                     <td>SVS 4</td>
                 </tr>
                 <tr>
+                    <td>04-05-2014</td>
                     <td><a href="#">CVV-Mercurius 1</a></td>
                     <td><strong>1</strong></td>
                     <td>-</td>
@@ -32,6 +45,7 @@
                     <td>Antibarbari 11</td>
                 </tr>
                 <tr>
+                    <td>04-05-2014</td>
                     <td><a href="#">Sparta (AV)</a></td>
                     <td><strong>7</strong></td>
                     <td>-</td>
@@ -41,7 +55,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-lg-8" style="border-left: 1px solid #eee">
+    <div class="col-lg-7" style="border-left: 1px solid #eee">
         
         <h3>Stand @ViewBag.Competition.Class<span>e klasse groep 0</span>@ViewBag.Competition.Group</h3>
         <table class="table table-hover">
@@ -82,9 +96,87 @@
             </tbody>
         </table>
         <p class="text-info">Last update: 22-04-2014</p>
+        <button class="btn btn-primary btn-primary" data-toggle="modal" data-target="#myModal">
+            Add Match
+        </button>
     </div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Voeg een wedstrijd toe</h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Add", "Match", FormMethod.Post, new { @class = "form-horizontal" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.MatchDate, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-4">
+                            @Html.TextBoxFor(x => x.MatchDate, new { @class = "form-control", @placeholder = "DD-MM-YYYY HH:MM" })
+                            
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.HomeTeamID, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-4">
+                            <select class="form-control" id="homeTeamSelect" name="homeTeamSelect">
+                                <option value="none"></option>
+                                @foreach (var team in ViewData["Teams"] as List<WebsiteCKC.Models.TeamStats>)
+                                {
+                                    <option value="@team.TeamID">@team.TeamName</option>
+                                }
+                            </select>
+                            @Html.TextBoxFor(x => x.HomeTeamID, new { @class = "form-control", @id = "homeTeamID" })
+                        </div>
+                        @Html.LabelFor(x => x.HomeTeamScored, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-2">
+                            @Html.TextBoxFor(x => x.HomeTeamScored, new { @class="form-control", @id = "homeTeamGoals"})
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.AwayTeamID, new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-4">
+                            <select class="form-control" id="awayTeamSelect" name="awayTeamSelect">
+                                <option value="none"></option>
+                                @foreach (var team in ViewData["Teams"] as List<WebsiteCKC.Models.TeamStats>)
+                                {
+                                    <option value="@team.TeamID">@team.TeamName</option>
+                                }
+                            </select>
+                            @Html.TextBoxFor(x => x.AwayTeamID, new { @class = "form-control", @id = "awayTeamID" })
+                        </div>
+                        @Html.LabelFor(x => x.AwayTeamScored, new { @class = "col-sm-2 control-label" })
+                        <div class="col-sm-2">
+                            @Html.TextBoxFor(x => x.AwayTeamScored, new { @class="form-control", @id = "awayTeamGoals"})
+                        </div>
+                    </div>
+                    <input type="submit" value="Add Match" class="btn btn-primary" />
+                }
+            </div>
+
+            <script>
+                $(function () {
+                    $("#homeTeamSelect").change(function (e) {
+                        $("#homeTeamID").val(this.value);
+                    })
+
+                    $("#awayTeamSelect").change(function (e) {
+                        $("#awayTeamID").val(this.value);
+                    })
+                });
+            </script>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
