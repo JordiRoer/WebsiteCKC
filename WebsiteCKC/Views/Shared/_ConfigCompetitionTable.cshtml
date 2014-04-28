@@ -1,2 +1,50 @@
-﻿<p>This is a table.</p>
+﻿<h3>@ViewBag.Competition.Class<span>e</span> klasse @ViewBag.Competition.Group</h3><p>@ViewBag.Competition.ID</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>#</td>
+            <td>Club</td>
+            <td>Team</td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody class="table-body">
+        @foreach (var team in ViewData["ConfigTeams"] as List<Team>)
+        {
+            <tr data-id="@team.ID">
+                <td>#</td>
+                <td>@team.ClubName</td>
+                <td>@team.TeamNumber</td>
+                <td><button class="btn btn-xs btn-primary adjust-row"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <td><button class="btn btn-xs btn-danger delete-row"><span class="glyphicon glyphicon-remove"></span></button></td>
+            </tr>
+        }
 
+        <tr data-id="23">
+        <td class="col-xs-1">#</td>
+        <td class="col-xs-3">CKC</td>
+        <td class="col-xs-2">5</td>
+        <td class="col-xs-6">
+            <button class="btn btn-xs btn-primary adjust-row">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+            <button class="btn btn-xs btn-danger delete-row">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+         </td>
+        </tr>
+    </tbody>
+</table>
+<button class="btn btn-sm btn-primary add-team-row">Nieuw team</button>
+<button class="btn btn-xs btn-primary adjust-row"><span class="glyphicon glyphicon-pencil"></span></button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Error on adding team</h4>
+      </div>
+    </div>
+  </div>
+</div>

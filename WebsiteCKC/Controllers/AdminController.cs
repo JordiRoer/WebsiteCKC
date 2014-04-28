@@ -46,18 +46,15 @@ namespace WebsiteCKC.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // Config page - Competition
         public ActionResult Competition()
         {
-            List<Team> teams=  new List<Team>();
             Competition comp = dbm.GetCompetitionByUserID(User.Identity.GetUserId());
             if (comp != null)
             {
-                teams = dbm.GetTeamsByCompID(comp.ID);
-                ViewData["ConfigTeams"] = teams;
-
+                ViewData["ConfigTeams"] = dbm.GetTeamsByCompID(comp.ID);
             }
-            ViewData["Competition"] = comp;
-            ViewBag.Message = "Message in a bottle";
+            ViewBag.Competition = comp;
 
             return View();
         }

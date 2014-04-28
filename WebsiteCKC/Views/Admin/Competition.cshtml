@@ -9,7 +9,7 @@
         </ul>
     </div>
     <div class="col-lg-10">
-        @if(ViewData["Competition"] != null)
+        @if(ViewBag.Competition != null)
         {
             @Html.Partial("_ConfigCompetitionTable");
         }
