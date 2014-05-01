@@ -22,6 +22,8 @@ namespace WebsiteCKC.Controllers
             if(ModelState.IsValid)
             {
                 TempData["MatchAdded"] = "Added the match";
+                // Add match to the database
+                dbm.AddMatch(model);
                 RedirectToAction("Table", "Statistics");
             }
 

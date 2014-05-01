@@ -5,6 +5,7 @@
     var teamInputField = '<input type="text" class="form-control" placeholder="Bijv: 5" />';
     var AdjustOkButton = '<button class="btn btn-sm btn-primary adjust-row-ok new">Change</button>';
     var deleteButton = '<button class="btn btn-xs btn-danger delete-row"><span class="glyphicon glyphicon-remove"></span></button>';
+    var buttonDivider = '<span class="button-divider" style="color: #808080">|</span>';
 
     function AdjustTeam(trElement)
     {
@@ -71,6 +72,8 @@
         // Get the whole row
         var row = $(this).parents()[1];
         var teamID = $(row).data("id");
+        var compID = $("#competitionID").val();
+        var id = $($(this).parents()[1]).data('id');
 
         // Get the values and put them in the array
         var arr = [];
@@ -86,17 +89,26 @@
         if(CheckInput(arr[0], arr[1]))
         {
             // Push to server. -> Ajax call
-            $(row).find("td").each(function (index, value) {
-                if(index == 1 || index == 2 )
-                {
-                    var v = $(value).find("input").val();
-                    $(value).html(v);
-                }
-                if(index == 3 )
-                {
-                    $(value).replaceWith("<td class='col-xs-6'>" + adjustButton + deleteButton + "</td>");
+            $.ajax({
+                type: "POST",
+                url: "/Admin/AdjustTeam",
+                data: { teamID: parseInt(id), clubName: arr[0], teamNumber: parseInt(arr[1]) },
+                success: function () {
+                    $(row).find("td").each(function (index, value) {
+                        if (index == 1 || index == 2) {
+                            var v = $(value).find("input").val();
+                            $(value).html(v);
+                        }
+                        if (index == 3) {
+                            $(value).replaceWith("<td class='col-xs-6'>" + adjustButton + buttonDivider + deleteButton + "</td>");
+                        }
+                    });
+                },
+                error: function () {
+
                 }
             });
+            
         }
         else
         {
@@ -108,6 +120,7 @@
     $(document).on('click', '.submit-row', function () {
         // Get the whole row
         var row = $(this).parents()[1];
+        var competitionID = $("#competitionID").val();
 
         var arr = [];
         $(row).find("td").each(function (index, value) {
@@ -119,24 +132,29 @@
 
         if (CheckInput(arr[0], arr[1]))
         {
-            // Do the ajax request
-            $(row).find("td").each(function (index, value) {
-                var inputValue = $(value).find("input").val();
-                $(value).find("input").remove();
-                $(value).html(inputValue);
+            $.ajax({
+                type: "POST",
+                url: "/Admin/AddTeam",
+                data: { compID: competitionID, clubName: arr[0], teamNumber: parseInt(arr[1]) },
+                success: function (data) {
+                    console.log(data);
+                    $(row).data("id", data);
+                    $(row).find("td").each(function (index, value) {
+                        var inputValue = $(value).find("input").val();
+                        $(value).find("input").remove();
+                        $(value).html(inputValue);
 
-                if(index == 3)
-                {
-                    $(value).replaceWith("<td class='col-xs-6'>" + adjustButton + deleteButton + "</td>");
+                        if (index == 3) {
+                            $(value).replaceWith("<td class='col-xs-6'>" + adjustButton + buttonDivider + deleteButton + "</td>");
 
-                    newTeamActive = false;
+                            newTeamActive = false;
+                        }
+                    });
+                },
+                error: function () {
+
                 }
-            });
-
-            console.log($(row));
-            $(row).data("id", 52);
-
-            console.log($(row).data("id"));
+            })
         }
         else
         {
@@ -147,9 +165,47 @@
     // Deleting a row
     $(document).on('click', '.delete-row', function () {
         var id = $($(this).parents()[1]).data('id');
-
+        var trRow = $(this).parents()[1];
+        console.log(trRow);
         // Ajax Call
+
+        $.ajax({
+            type: "POST",
+            url: "/Admin/DeleteTeam",
+            data: { teamID: id },
+            success: function () {
+                $(trRow).remove();
+            },
+            error: function () {
+
+            }
+        });
+
     });
+
+    // Setting a favorite team
+    $(document).on('click', '.set-favorite', function () {
+        var row = $(this).parents()[1];
+        var teamID = $(row).data("id");
+        var compID = $("#competitionID").val();
+
+        // Remove old fav team
+        $(".table-body").find(".favorite-team").remove();
+
+        // Set the fav team
+
+        $.ajax({
+            url: '/Admin/SetFavoriteTeam/',
+            type: "POST",
+            data: { compID: compID, teamID: teamID },
+            success: function (data) {
+                // We have setted a favorite team. Lets remove the rest of the 
+            },
+            error: function () {
+
+            }
+        })
+    })
 
     function SubmitAdjust()
     {

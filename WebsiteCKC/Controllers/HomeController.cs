@@ -15,11 +15,20 @@ namespace WebsiteCKC.Controllers
 
         public ActionResult Index()
         {
-            Competition comp = dbm.GetCompetitionByID(8);
-            List<Team> teamss = dbm.GetTeamsByCompID(comp.ID);
-            List<TeamStats> teams = statsCenter.SortTeamsByPoint(teamss);
-            
-            ViewData["Teams"] = teams;
+            Competition competition;
+            List<Team> teams = null;
+            List<TeamStats> sortedTeams = null;
+
+            competition = dbm.GetCompetition();
+
+            if (competition != null)
+            {
+                teams = dbm.GetTeamsByCompID(competition.ID);
+                sortedTeams = statsCenter.SortTeamsByPoint(teams);
+            }
+
+
+            ViewData["Teams"] = sortedTeams;
             return View();
         }
 
@@ -37,6 +46,29 @@ namespace WebsiteCKC.Controllers
             return View();
         }
 
-        
+        public ActionResult EmptyDatabase()
+        {
+            List<Team> teams = (from t in db.Teams select t).ToList();
+            foreach(Team team in teams)
+            {
+                db.Teams.Remove(team);
+                db.SaveChanges();
+            }
+            List<Competition> comps = (from c in db.Competitions select c).ToList();
+            foreach(Competition comp in comps)
+            {
+                db.Competitions.Remove(comp);
+                db.SaveChanges();
+            }
+
+            List<OwnedTeam> ownedteams = (from ot in db.OwnedTeams select ot).ToList();
+            foreach (OwnedTeam oteam in ownedteams)
+            {
+                db.OwnedTeams.Remove(oteam);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

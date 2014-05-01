@@ -12,48 +12,11 @@
     
     @if(Model == null)
     {
-        <p>fsdfsdsdfssfdsdffsdfjwejfbnwefbwefhjwebhjfwebfbwefwejfbwefhwebfhjwebfhjwebfhwejfbwehjfb</p>
+        
     }
     <div class="col-md-5">
         <h3>Last results</h3>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody data-link="row" class="rowlink">
-                <tr>
-                    <td>04-05-2014</td>
-                    <td><a href="#">CKC 5</a></td>
-                    <td><strong>1</strong></td>
-                    <td>-</td>
-                    <td><strong>3</strong></td>
-                    <td>SVS 4</td>
-                </tr>
-                <tr>
-                    <td>04-05-2014</td>
-                    <td><a href="#">CVV-Mercurius 1</a></td>
-                    <td><strong>1</strong></td>
-                    <td>-</td>
-                    <td><strong>3</strong></td>
-                    <td>Antibarbari 11</td>
-                </tr>
-                <tr>
-                    <td>04-05-2014</td>
-                    <td><a href="#">Sparta (AV)</a></td>
-                    <td><strong>7</strong></td>
-                    <td>-</td>
-                    <td><strong>2</strong></td>
-                    <td>Pretoria 4</td>
-                </tr>
-            </tbody>
-        </table>
+        @*@Html.Partial("_LatestResults")*@
     </div>
     <div class="col-lg-7" style="border-left: 1px solid #eee">
         
@@ -61,19 +24,18 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Team</th>
-                    <th>PL</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>P</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>+-</th>
-                    <th>PS</th>
+                    <th class="col-xs-1">#</th>
+                    <th class="col-xs-3">Team</th>
+                    <th class="col-xs-1">P</th>
+                    <th class="col-xs-1">W</th>
+                    <th class="col-xs-1">D</th>
+                    <th class="col-xs-1">L</th>
+                    <th class="col-xs-1">F</th>
+                    <th class="col-xs-1">A</th>
+                    <th class="col-xs-1">+-</th>
+                    <th class="col-xs-1"><strong>P</strong></thclass="col-xs-1">
 
-                </tr>
+</tr>
             </thead>
             <tbody>
                 @foreach (var team in ViewData["Teams"] as List<WebsiteCKC.Models.TeamStats>)
@@ -86,16 +48,14 @@
                         <td>@team.MatchesWon</td>
                         <td>@team.MatchesTied</td>
                         <td>@team.MatchesLost</td>
-                        <td>@team.Points</td>
                         <td>@team.GoalsScored</td>
                         <td>@team.GoalsConceded</td>
                         <td>@team.GoalsAverage</td>
-                        <td>@team.PointsLost</td>
+                        <td><strong>@team.Points</strong></td>
                     </tr>
                 }
             </tbody>
         </table>
-        <p class="text-info">Last update: 22-04-2014</p>
         <button class="btn btn-primary btn-primary" data-toggle="modal" data-target="#myModal">
             Add Match
         </button>
@@ -132,7 +92,7 @@
                                     <option value="@team.TeamID">@team.TeamName</option>
                                 }
                             </select>
-                            @Html.TextBoxFor(x => x.HomeTeamID, new { @class = "form-control", @id = "homeTeamID" })
+                            @Html.TextBoxFor(x => x.HomeTeamID, new { @class = "form-control", @id = "homeTeamID", @style="display: none;" })
                         </div>
                         @Html.LabelFor(x => x.HomeTeamScored, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-2">
@@ -149,7 +109,7 @@
                                     <option value="@team.TeamID">@team.TeamName</option>
                                 }
                             </select>
-                            @Html.TextBoxFor(x => x.AwayTeamID, new { @class = "form-control", @id = "awayTeamID" })
+                            @Html.TextBoxFor(x => x.AwayTeamID, new { @class = "form-control", @id = "awayTeamID", @style = "display: none;" })
                         </div>
                         @Html.LabelFor(x => x.AwayTeamScored, new { @class = "col-sm-2 control-label" })
                         <div class="col-sm-2">
@@ -171,9 +131,6 @@
                     })
                 });
             </script>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
         </div>
     </div>
 </div>

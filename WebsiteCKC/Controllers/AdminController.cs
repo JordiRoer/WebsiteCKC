@@ -11,6 +11,7 @@ namespace WebsiteCKC.Controllers
     public class AdminController : Controller
     {
         DatabaseManager dbm = new DatabaseManager();
+
         public ActionResult Index()
         {
             return View();
@@ -53,6 +54,8 @@ namespace WebsiteCKC.Controllers
             if (comp != null)
             {
                 ViewData["ConfigTeams"] = dbm.GetTeamsByCompID(comp.ID);
+                Team favTeam = dbm.GetFavoriteTeamByUserID(User.Identity.GetUserId());
+                ViewBag.FavTeamID = favTeam;
             }
             ViewBag.Competition = comp;
 
@@ -70,7 +73,7 @@ namespace WebsiteCKC.Controllers
                     if ((view.Group.ToString().Length > 0) && (view.Group.ToString().Length <= 2))
                     {
                         dbm.AddCompetition(view.Class, view.Group, User.Identity.GetUserId());
-                        return View("Competition");
+                        return RedirectToAction("Competition");
                     }
                     else
                     {
@@ -82,12 +85,45 @@ namespace WebsiteCKC.Controllers
                     ModelState.AddModelError("Class", "Klasse invoer is niet correct. Invoer bestaat uit 1 getal. Bijv: 1 ( 1e klasse )");
                 }
 
-                
             }
 
             ModelState.AddModelError("", "Invoer niet correct.");
 
             return View(view);
+        }
+
+        [HttpPost]
+        public ActionResult AddTeam(int compID, string clubName, int teamNumber)
+        {
+            // Add this team to the db
+            int teamID = dbm.AddTeam(clubName, teamNumber, compID);
+            return Json(teamID);
+        }
+
+        [HttpPost]
+        public ActionResult AdjustTeam(int teamID, string clubname, int teamNumber)
+        {
+            return Json("");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTeam(int teamID)
+        {
+            // Find the team with this id and remove that sucka.
+            bool success = dbm.RemoveTeam(teamID);
+            return Json("");
+        }
+
+        [HttpPost]
+        public ActionResult SetFavoriteTeam(int compID, int teamID)
+        {
+            // Set a favorite team
+
+            dbm.SetFavoriteTeam(User.Identity.GetUserId(), compID, teamID);
+
+            Team favTeam = dbm.GetFavoriteTeamByUserID(User.Identity.GetUserId());
+
+            return Json(favTeam.ID);
         }
     }
 }

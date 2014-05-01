@@ -20,12 +20,21 @@ namespace WebsiteCKC.Controllers
 
         public ActionResult Table()
         {
-            Competition comp = dbm.GetCompetitionByID(8);
-            List<Team> teams = dbm.GetTeamsByCompID(comp.ID);
-            List<TeamStats> orderedTeams = statsCenter.SortTeamsByPoint(teams);
+            Competition competition;
+            List<Team> teams = null;
+            List<TeamStats> sortedTeams = null;
 
-            ViewData["Teams"] = orderedTeams;
-            ViewBag.Competition = comp;
+            competition = dbm.GetCompetition();
+
+            if (competition != null)
+            {
+                teams = dbm.GetTeamsByCompID(competition.ID);
+                sortedTeams = statsCenter.SortTeamsByPoint(teams);
+            }
+
+
+            ViewData["Teams"] = sortedTeams;
+            ViewBag.Competition = competition;
             return View();
         }
     }

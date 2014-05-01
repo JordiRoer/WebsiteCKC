@@ -39,8 +39,9 @@ namespace WebsiteCKC.Models
                 TeamNumber = teamNumber,
                 CompID = compID
             });
-            int teamID = db.SaveChanges();
-            return 0;
+            db.SaveChanges();
+            Team team = this.GetTeam(clubname, teamNumber, compID);
+            return team.ID;
         }
 
         public void DeleteCompetition(int competitionID)
@@ -98,9 +99,95 @@ namespace WebsiteCKC.Models
 
         public Team GetFavoriteTeamByUserID(string userID)
         {
-            OwnedTeam team = (from t in db.OwnedTeams where t.UserID == userID select t).FirstOrDefault();
-            Team ownedTeam = (from t in db.Teams where t.ID == team.TeamID select t).FirstOrDefault();
-            return ownedTeam;
+            try
+            {
+                OwnedTeam team = (from t in db.OwnedTeams where t.UserID == userID select t).FirstOrDefault();
+                Team ownedTeam = (from t in db.Teams where t.ID == team.TeamID select t).FirstOrDefault();
+
+                return ownedTeam;
+            }
+            catch(Exception e )
+            {
+                return null;
+            }
+        }
+
+        public Competition GetCompetition()
+        {
+            Competition comp = (from c in db.Competitions select c).FirstOrDefault();
+            return comp;
+        }
+
+        public Boolean RemoveTeam(int teamID)
+        {
+            Team team = (from t in db.Teams where t.ID == teamID select t).FirstOrDefault();
+            try
+            {
+                db.Teams.Remove(team);
+                db.SaveChanges();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            
+            return true;
+        }
+
+        public Team GetTeam(string clubName, int TeamNumber, int compID)
+        {
+            Team team = (from t in db.Teams where t.ClubName == clubName && t.TeamNumber == TeamNumber && t.CompID == compID select t).FirstOrDefault();
+            return team;
+        }
+
+        public Boolean SetFavoriteTeam(string userID, int compID, int teamID)
+        {
+            OwnedTeam team = (from t in db.OwnedTeams where t.UserID == userID && t.TeamID == teamID select t).FirstOrDefault();
+            if(team == null)
+            {
+                OwnedTeam favTeam = new OwnedTeam
+                {
+                    TeamID = teamID,
+                    UserID = userID
+                };
+
+                db.OwnedTeams.Add(favTeam);
+                db.SaveChanges();
+                
+            }
+            else
+            {
+                db.OwnedTeams.Remove(team);
+                db.SaveChanges();
+
+                OwnedTeam favTeam = new OwnedTeam
+                {
+                    TeamID = teamID,
+                    UserID = userID
+                };
+
+                db.OwnedTeams.Add(favTeam);
+
+            }
+
+            return true;
+        }
+
+        public void AddMatch(MatchViewModels model)
+        {
+            Match match = new Match
+            {
+                MatchedPlayed = DateTime.Parse(model.MatchDate),
+                HomeTeamID = model.HomeTeamID,
+                HomeTeamScored = model.HomeTeamScored,
+                AwayTeamID = model.AwayTeamID,
+                AwayTeamScored = model.AwayTeamScored
+            };
+
+            db.Matches.Add(match);
+            db.SaveChanges();
+
+            return;
         }
     }
 }

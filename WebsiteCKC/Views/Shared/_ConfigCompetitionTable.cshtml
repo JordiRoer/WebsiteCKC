@@ -1,42 +1,40 @@
-﻿<h3>@ViewBag.Competition.Class<span>e</span> klasse @ViewBag.Competition.Group</h3><p>@ViewBag.Competition.ID</p>
+﻿<h3>@ViewBag.Competition.Class<span>e</span> klasse @ViewBag.Competition.Group</h3><p></p>
+<input type="hidden" id="competitionID" value="@ViewBag.Competition.ID" />
 <table class="table table-striped">
     <thead>
         <tr>
-            <td>#</td>
-            <td>Club</td>
-            <td>Team</td>
-            <td></td>
+            <td class="col-xs-1"><strong>#</strong></td>
+            <td class="col-xs-3"><strong>Club</strong></td>
+            <td class="col-xs-2"><strong>Team</strong></td>
+            <td class="col-xs-6"></td>
         </tr>
     </thead>
     <tbody class="table-body">
+
         @foreach (var team in ViewData["ConfigTeams"] as List<Team>)
         {
+            
             <tr data-id="@team.ID">
-                <td>#</td>
-                <td>@team.ClubName</td>
-                <td>@team.TeamNumber</td>
-                <td><button class="btn btn-xs btn-primary adjust-row"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                <td><button class="btn btn-xs btn-danger delete-row"><span class="glyphicon glyphicon-remove"></span></button></td>
+                <td class="col-xs-1">#</td>
+                <td class="col-xs-3">@team.ClubName</td>
+                <td class="col-xs-2">@team.TeamNumber</td>
+                <td class="col-xs-6">
+                    <button class="btn btn-xs btn-primary adjust-row">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <span class="button-divider" style="color: #808080">|</span>
+                    <button class="btn btn-xs btn-danger delete-row">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
             </tr>
         }
 
         <tr data-id="23">
-        <td class="col-xs-1">#</td>
-        <td class="col-xs-3">CKC</td>
-        <td class="col-xs-2">5</td>
-        <td class="col-xs-6">
-            <button class="btn btn-xs btn-primary adjust-row">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </button>
-            <button class="btn btn-xs btn-danger delete-row">
-                <span class="glyphicon glyphicon-remove"></span>
-            </button>
-         </td>
+        
         </tr>
     </tbody>
 </table>
 <button class="btn btn-sm btn-primary add-team-row">Nieuw team</button>
-<button class="btn btn-xs btn-primary adjust-row"><span class="glyphicon glyphicon-pencil"></span></button>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
