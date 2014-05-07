@@ -189,5 +189,72 @@ namespace WebsiteCKC.Models
 
             return;
         }
+
+        public List<Match> GetLastMatches(int competitionID)
+        {
+            List<Team> teams;
+            List<Match> allmatches = new List<Match>(), sortedmatches, lastmatches = null; ;
+
+            teams = (from t in db.Teams where t.CompID == competitionID select t).ToList();
+            foreach( Team t in teams )
+            {
+                List<Match> matches = (from m in db.Matches where m.HomeTeamID == t.ID || m.AwayTeamID == t.ID select m).ToList();
+                foreach(Match match in matches)
+                {
+                    if(allmatches.Count != 0 )
+                    { 
+                        if(!allmatches.Contains(match))
+                        {
+                            allmatches.Add(match);
+                        }
+                    }
+                    else
+                    {
+                        allmatches.Add(match);
+                    }
+                }
+            }
+
+            if(allmatches != null)
+            {
+                sortedmatches = allmatches.OrderByDescending(o => o.MatchedPlayed).ToList();
+                lastmatches = sortedmatches.Take(7).ToList();
+
+                return lastmatches;
+            }
+
+            return allmatches;
+        }
+
+        public List<MatchResult> ParseMatchesToResults(List<Match> matches)
+        {
+            List<MatchResult> results = new List<MatchResult>();
+
+            foreach(Match match in matches)
+            {
+                MatchResult result = new MatchResult
+                {
+                    MatchID = match.MatchID,
+                    HomeTeamID = match.HomeTeamID,
+                    HomeTeamName = this.GetTeamNameByID(match.HomeTeamID),
+                    HomeTeamScored = match.HomeTeamScored,
+                    AwayTeamID = match.AwayTeamID,
+                    AwayTeamName = this.GetTeamNameByID(match.AwayTeamID),
+                    AwayTeamScored = match.AwayTeamScored,
+                    MatchPlayed = match.MatchedPlayed
+                };
+
+                results.Add(result);
+            }
+
+            return results;
+        }
+
+        public string GetTeamNameByID(int teamID)
+        {
+            Team team = (from t in db.Teams where t.ID == teamID select t).FirstOrDefault();
+
+            return team.ClubName + " " + team.TeamNumber; 
+        }
     }
 }

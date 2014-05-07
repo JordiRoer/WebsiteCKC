@@ -23,6 +23,8 @@ namespace WebsiteCKC.Controllers
             Competition competition;
             List<Team> teams = null;
             List<TeamStats> sortedTeams = null;
+            List<Match> matches = null;
+            List<MatchResult> results = null;
 
             competition = dbm.GetCompetition();
 
@@ -30,9 +32,11 @@ namespace WebsiteCKC.Controllers
             {
                 teams = dbm.GetTeamsByCompID(competition.ID);
                 sortedTeams = statsCenter.SortTeamsByPoint(teams);
+                matches = dbm.GetLastMatches(competition.ID);
+                results = dbm.ParseMatchesToResults(matches);
             }
 
-
+            ViewData["Results"] = results;
             ViewData["Teams"] = sortedTeams;
             ViewBag.Competition = competition;
             return View();

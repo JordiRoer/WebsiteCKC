@@ -236,6 +236,7 @@
     <Compile Include="Models\AdminViewModels.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MatchResult.cs" />
     <Compile Include="Models\MatchViewModels.cs" />
     <Compile Include="Models\StatisticsCenter.cs" />
     <Compile Include="Models\TeamStats.cs" />
